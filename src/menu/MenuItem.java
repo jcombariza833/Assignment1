@@ -1,3 +1,5 @@
+package menu;
+
 public class MenuItem {
     private String name;
     private int category;
@@ -15,9 +17,7 @@ public class MenuItem {
         return name;
     }
 
-    public int getCategory() {
-        return category;
-    }
+    public int getCategory() { return category; }
 
     public boolean isHeartHealthy() {
         return heartHealthy;

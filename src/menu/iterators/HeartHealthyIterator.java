@@ -1,12 +1,17 @@
+package menu.iterators;
+
 import IteratorPattern.MenuIterator;
+import menu.MenuItem;
 import java.util.ArrayList;
 
-public class AllItemsIterator implements MenuIterator<MenuItem> {
+public class HeartHealthyIterator implements MenuIterator<MenuItem> {
     private ArrayList<MenuItem> menuItems;
     private int index;
 
-    public AllItemsIterator(ArrayList<MenuItem> menuItems) {
+    public HeartHealthyIterator(ArrayList<MenuItem> menuItems) {
         this.menuItems = menuItems;
+        this.index = -1;
+        fixNext();
     }
 
     @Override
@@ -16,13 +21,16 @@ public class AllItemsIterator implements MenuIterator<MenuItem> {
 
     @Override
     public void next() {
-        if (this.hasNext()) {
-            index++;
-        }
+        fixNext();
     }
 
     @Override
     public MenuItem getItem() {
         return menuItems.get(index);
+    }
+
+    private void fixNext() {
+        index++;
+        while (hasNext() && !menuItems.get(index).isHeartHealthy()) index++;
     }
 }

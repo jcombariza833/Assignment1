@@ -1,15 +1,20 @@
+package menu.iterators;
+
 import IteratorPattern.MenuIterator;
+import menu.MenuItem;
 
 import java.util.ArrayList;
 
-public class ItemIterator implements MenuIterator<MenuItem>, MenuFilter {
+public class ItemIterator implements MenuIterator<MenuItem> {
     private ArrayList<MenuItem> menuItems;
     private int itemType;
     private int index;
 
     public ItemIterator(ArrayList<MenuItem> menuItems, int itemType) {
         this.itemType = itemType;
-        this.menuItems = menuFilter(menuItems);
+        this.menuItems = menuItems;
+        this.index = -1;
+        fixNext();
     }
 
     @Override
@@ -19,9 +24,7 @@ public class ItemIterator implements MenuIterator<MenuItem>, MenuFilter {
 
     @Override
     public void next() {
-        if (this.hasNext()) {
-            index++;
-        }
+        fixNext();
     }
 
     @Override
@@ -29,16 +32,8 @@ public class ItemIterator implements MenuIterator<MenuItem>, MenuFilter {
         return menuItems.get(index);
     }
 
-    @Override
-    public ArrayList<MenuItem> menuFilter(ArrayList<MenuItem> menuItems) {
-        ArrayList<MenuItem> result = new ArrayList<>();
-
-        for (MenuItem item: menuItems) {
-            if (item.getCategory() == itemType) {
-                result.add(item);
-            }
-        }
-
-        return result;
+    private void fixNext() {
+        index++;
+        while (hasNext() && menuItems.get(index).getCategory() != itemType) index++;
     }
 }

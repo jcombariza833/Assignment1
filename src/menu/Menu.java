@@ -1,7 +1,13 @@
+package menu;
+
 import java.util.ArrayList;
 
 import IteratorPattern.Iterable;
 import IteratorPattern.MenuIterator;
+import menu.iterators.AllItemsIterator;
+import menu.iterators.HeartHealthyIterator;
+import menu.iterators.ItemIterator;
+import menu.iterators.PriceIterator;
 
 public class Menu implements Iterable<MenuItem> {
     public static final int APPETIZERS = 1;
