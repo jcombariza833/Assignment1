@@ -8,47 +8,64 @@ import java.util.*;
 
 public class Assignment1 {
     public static void main(String[] args) {
-        UIController.initialMenu();
         Scanner scanner = new Scanner(System.in);
-
-        int menuOption = validateIntInput(scanner);
-
         MenuController menuController = new MenuController();
-        Menu menu = new Menu();
+        boolean running = true;
 
-        switch (menuOption) {
-            case 1:
-                menuController.displayAllMenuItems();
-                break;
-            case 2:
-                menuController.displayAllAppetizers();
-                break;
-            case 3:
-                menuController.displayAllMainDishes();
-                break;
-            case 4:
-                menuController.displayAllDesserts();
-                break;
-            case 5:
-                menuController.displayAllHealthyItems();
-                break;
-            case 6:
-                System.out.print("Please set a prices: ");
-                float price = validateFloatInput(scanner);
-                menuController.displayAllMainDishesUnderPrice(price);
-                break;
-            case 7:
-                MenuItem newMenuItem = new MenuItem("Eggs", Menu.APPETIZERS, true, 15.0f);
-                menu.add(newMenuItem);
-                break;
-            case 8:
-                MenuItem newMenuItem2 = new MenuItem("Eggs", Menu.APPETIZERS, true, 15.0f);
-                menu.deleteItem(newMenuItem2);
-                menuController.displayAllMenuItems();
+        while (running){
+            UIController.initialMenu();
+            int menuOption = validateIntInput(scanner,1,9);
+
+            switch (menuOption) {
+                case 1:
+                    menuController.displayAllMenuItems();
+                    break;
+                case 2:
+                    menuController.displayAllAppetizers();
+                    break;
+                case 3:
+                    menuController.displayAllMainDishes();
+                    break;
+                case 4:
+                    menuController.displayAllDesserts();
+                    break;
+                case 5:
+                    menuController.displayAllHealthyItems();
+                    break;
+                case 6:
+                    System.out.print("Please set a prices: ");
+                    float price = validateFloatInput(scanner);
+                    menuController.displayAllMainDishesUnderPrice(price);
+                    break;
+                case 7:
+                    System.out.print("Enter the new item name: ");
+                    String name = scanner.next();
+
+                    UIController.menuCategoryMenu();
+                    int category = validateIntInput(scanner,1,3);
+
+                    UIController.menuHeartHealthyMenu();
+                    int healthyIn = validateIntInput(scanner,1,2);
+                    boolean isHealthy = healthyIn == 1;
+
+                    System.out.print("Enter the new item price: ");
+                    float newPrice = validateFloatInput(scanner);
+
+                    menuController.addNewMenuItem(name, category, isHealthy, newPrice);
+                    break;
+                case 8:
+                    System.out.print("Enter the item name: ");
+                    String itemName = scanner.next();
+                    menuController.deleteMenuItem(itemName);
+                    break;
+                case 9:
+                    running = false;
+                    break;
+            }
         }
     }
 
-    private static int validateIntInput(Scanner input) {
+    private static int validateIntInput(Scanner input, int min, int max) {
         while (!input.hasNextInt()) {
             System.out.print("That is not a valid input, please try again.\n" + "Please choose an option: ");
             input.next();
@@ -56,9 +73,9 @@ public class Assignment1 {
 
         int menuOption = input.nextInt();
 
-        if (menuOption < 1 || menuOption > 8) {
+        if (menuOption < min || menuOption > max) {
             System.out.print("This option is not in the menu.\n" + "Please choose an option: ");
-            menuOption = validateIntInput(input);
+            menuOption = validateIntInput(input, min, max);
         }
         return menuOption;
     }

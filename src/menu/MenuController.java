@@ -96,11 +96,15 @@ public class MenuController {
             if (iterator.getItem().getName().equals(name)) {
                 item = iterator.getItem();
                 break;
+            } else {
+                iterator.next();
             }
         }
 
         if(item != null) {
             menu.deleteItem(item);
+        } else {
+            System.out.println("This item does not exist");
         }
     }
 
