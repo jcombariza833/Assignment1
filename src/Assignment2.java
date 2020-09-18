@@ -1,12 +1,9 @@
-import IteratorPattern.MenuIterator;
-import menu.Menu;
 import menu.MenuController;
-import menu.MenuItem;
 import ui.UIController;
 
 import java.util.*;
 
-public class Assignment1 {
+public class Assignment2 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         MenuController menuController = new MenuController();
