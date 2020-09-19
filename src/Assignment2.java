@@ -9,57 +9,58 @@ public class Assignment2 {
         MenuController menuController = new MenuController();
         boolean running = true;
 
+        UIController.initialMenu();
+
         while (running){
-            UIController.initialMenu();
+            System.out.print("Please choose an option: ");
             int menuOption = validateIntInput(scanner,1,9);
+            UIController.separator();
 
             switch (menuOption) {
-                case 1:
-                    menuController.displayAllMenuItems();
-                    break;
-                case 2:
-                    menuController.displayAllAppetizers();
-                    break;
-                case 3:
-                    menuController.displayAllMainDishes();
-                    break;
-                case 4:
-                    menuController.displayAllDesserts();
-                    break;
-                case 5:
-                    menuController.displayAllHealthyItems();
-                    break;
                 case 6:
                     System.out.print("Please set a prices: ");
                     float price = validateFloatInput(scanner);
-                    menuController.displayAllMainDishesUnderPrice(price);
+                    UIController.separator();
+                    menuController.displayMenuItemsUnderPrice(price);
                     break;
                 case 7:
-                    System.out.print("Enter the new item name: ");
-                    String name = scanner.next();
-
-                    UIController.menuCategoryMenu();
-                    int category = validateIntInput(scanner,1,3);
-
-                    UIController.menuHeartHealthyMenu();
-                    int healthyIn = validateIntInput(scanner,1,2);
-                    boolean isHealthy = healthyIn == 1;
-
-                    System.out.print("Enter the new item price: ");
-                    float newPrice = validateFloatInput(scanner);
-
-                    menuController.addNewMenuItem(name, category, isHealthy, newPrice);
+                    addNewMenuItem(scanner, menuController);
                     break;
                 case 8:
                     System.out.print("Enter the item name: ");
                     String itemName = scanner.next();
+                    UIController.separator();
                     menuController.deleteMenuItem(itemName);
                     break;
                 case 9:
                     running = false;
                     break;
+                default:
+                    menuController.displayMenuItems(menuOption);
+                    break;
             }
         }
+    }
+
+    private static void addNewMenuItem(Scanner scanner, MenuController menuController) {
+        System.out.print("Enter the new item name: ");
+        String name = scanner.next();
+        UIController.separator();
+
+        UIController.menuCategoryMenu();
+        int category = validateIntInput(scanner,1,3);
+        UIController.separator();
+
+        UIController.menuHeartHealthyMenu();
+        int healthyIn = validateIntInput(scanner,1,2);
+        UIController.separator();
+        boolean isHealthy = healthyIn == 1;
+
+        System.out.print("Enter the new item price: ");
+        float newPrice = validateFloatInput(scanner);
+        UIController.separator();
+
+        menuController.addNewMenuItem(name, category, isHealthy, newPrice);
     }
 
     private static int validateIntInput(Scanner input, int min, int max) {

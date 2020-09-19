@@ -1,31 +1,19 @@
 package menu.iterators;
 
-import IteratorPattern.MenuIterator;
+import menu.MenuIterator;
 import menu.MenuItem;
-import java.util.ArrayList;
 
 public class AllItemsIterator implements MenuIterator<MenuItem> {
-    private ArrayList<MenuItem> menuItems;
+    private MenuItem[] menuItems;
     private int index;
 
-    public AllItemsIterator(ArrayList<MenuItem> menuItems) {
+    public AllItemsIterator(MenuItem[] menuItems) {
         this.menuItems = menuItems;
     }
 
     @Override
-    public boolean hasNext() {
-        return index < menuItems.size();
-    }
+    public boolean hasNext() { return index < menuItems.length; }
 
     @Override
-    public void next() {
-        if (this.hasNext()) {
-            index++;
-        }
-    }
-
-    @Override
-    public MenuItem getItem() {
-        return menuItems.get(index);
-    }
+    public MenuItem next() { return menuItems[index++]; }
 }

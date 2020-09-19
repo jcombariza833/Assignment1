@@ -1,36 +1,35 @@
 package menu.iterators;
 
-import IteratorPattern.MenuIterator;
+import menu.MenuIterator;
 import menu.MenuItem;
-import java.util.ArrayList;
+
+import java.util.NoSuchElementException;
 
 public class HeartHealthyIterator implements MenuIterator<MenuItem> {
-    private ArrayList<MenuItem> menuItems;
+    private MenuItem[] menuItems;
     private int index;
 
-    public HeartHealthyIterator(ArrayList<MenuItem> menuItems) {
+    public HeartHealthyIterator(MenuItem[] menuItems) {
         this.menuItems = menuItems;
-        this.index = -1;
-        fixNext();
+        this.index = 0;
+        findHeartHealthyItem();
     }
 
     @Override
     public boolean hasNext() {
-        return index < menuItems.size();
+        return index < menuItems.length;
     }
 
     @Override
-    public void next() {
-        fixNext();
-    }
-
-    @Override
-    public MenuItem getItem() {
-        return menuItems.get(index);
-    }
-
-    private void fixNext() {
+    public MenuItem next() {
+        MenuItem item = menuItems[index];
         index++;
-        while (hasNext() && !menuItems.get(index).isHeartHealthy()) index++;
+        findHeartHealthyItem();
+
+        return item;
+    }
+
+    private void findHeartHealthyItem() {
+        while (hasNext() && !menuItems[index].isHeartHealthy()) index++;
     }
 }

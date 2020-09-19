@@ -1,39 +1,35 @@
 package menu.iterators;
 
-import IteratorPattern.MenuIterator;
+import menu.MenuIterator;
 import menu.MenuItem;
 
-import java.util.ArrayList;
-
 public class ItemIterator implements MenuIterator<MenuItem> {
-    private ArrayList<MenuItem> menuItems;
+    private MenuItem[] menuItems;
     private int itemType;
     private int index;
 
-    public ItemIterator(ArrayList<MenuItem> menuItems, int itemType) {
+    public ItemIterator(MenuItem[] menuItems, int itemType) {
         this.itemType = itemType;
         this.menuItems = menuItems;
-        this.index = -1;
-        fixNext();
+        this.index = 0;
+        findCategory();
     }
 
     @Override
     public boolean hasNext() {
-        return index < menuItems.size();
+        return index < menuItems.length;
     }
 
     @Override
-    public void next() {
-        fixNext();
-    }
-
-    @Override
-    public MenuItem getItem() {
-        return menuItems.get(index);
-    }
-
-    private void fixNext() {
+    public MenuItem next() {
+        MenuItem item = menuItems[index];
         index++;
-        while (hasNext() && menuItems.get(index).getCategory() != itemType) index++;
+        findCategory();
+
+        return item;
+    }
+
+    private void findCategory() {
+        while (hasNext() && menuItems[index].getCategory() != itemType) index++;
     }
 }

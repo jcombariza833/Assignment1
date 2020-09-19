@@ -1,7 +1,6 @@
-package IteratorPattern;
+package menu;
 
 public interface MenuIterator<T> {
     boolean hasNext();
-    void next();
-    T getItem();
+    T next();
 }

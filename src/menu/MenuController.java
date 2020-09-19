@@ -1,6 +1,5 @@
 package menu;
 
-import IteratorPattern.MenuIterator;
 import ui.UIController;
 
 public class MenuController {
@@ -11,77 +10,16 @@ public class MenuController {
         populateMenu(menu);
     }
 
-    public void displayAllMenuItems() {
-        MenuIterator<MenuItem> allItemsIterator = menu.getAllItemsIterator();
-        UIController.separator();
-        System.out.println("ALL MENU ITEMS");
-        UIController.separator();
-        while (allItemsIterator.hasNext()) {
-            MenuItem item = allItemsIterator.getItem();
-            System.out.println(item.getName() + " $" + item.getPrice());
-            allItemsIterator.next();
-        }
+    public void displayMenuItems(int menuOption) {
+        MenuIterator<MenuItem> iterator = getIterator(menuOption);
+        titleMenuUnderPrice(menuOption);
+        displayMenu(iterator);
     }
 
-    public void displayAllAppetizers() {
-        MenuIterator<MenuItem> allAppetizersIterator = menu.getItemIterator(Menu.APPETIZERS);
-        UIController.separator();
-        System.out.println("APPETIZERS");
-        UIController.separator();
-        while (allAppetizersIterator.hasNext()) {
-            MenuItem item = allAppetizersIterator.getItem();
-            System.out.println(item.getName() + " $" + item.getPrice());
-            allAppetizersIterator.next();
-        }
-    }
-
-    public void displayAllMainDishes() {
-        MenuIterator<MenuItem> allMainDishesIterator = menu.getItemIterator(Menu.MAIN_DISH);
-        UIController.separator();
-        System.out.println("MAIN DISHES");
-        UIController.separator();
-        while (allMainDishesIterator.hasNext()) {
-            MenuItem item = allMainDishesIterator.getItem();
-            System.out.println(item.getName() + " $" + item.getPrice());
-            allMainDishesIterator.next();
-        }
-    }
-
-    public void displayAllDesserts() {
-        MenuIterator<MenuItem> allDessertsIterator = menu.getItemIterator(Menu.DESSERT);
-        UIController.separator();
-        System.out.println("DESSERTS");
-        UIController.separator();
-        while (allDessertsIterator.hasNext()) {
-            MenuItem item = allDessertsIterator.getItem();
-            System.out.println(item.getName() + " $" + item.getPrice());
-            allDessertsIterator.next();
-        }
-    }
-
-    public void displayAllHealthyItems() {
-        MenuIterator<MenuItem> allHealthyItemsIterator = menu.getHeartHealthyIterator();
-        UIController.separator();
-        System.out.println("ALL HEART HEALTHY MENU ITEMS");
-        UIController.separator();
-        while (allHealthyItemsIterator.hasNext()) {
-            MenuItem item = allHealthyItemsIterator.getItem();
-            System.out.println(item.getName() + " $" + item.getPrice());
-            allHealthyItemsIterator.next();
-        }
-    }
-
-    public void displayAllMainDishesUnderPrice(Float price) {
-        MenuIterator<MenuItem> allMainDishesUnderPriceIterator = menu.getPriceIterator(price);
-        UIController.separator();
-        System.out.println("ALL MAIN DISHES UNDER " + price + " USD");
-        UIController.separator();
-        while (allMainDishesUnderPriceIterator.hasNext()) {
-            MenuItem item = allMainDishesUnderPriceIterator.getItem();
-            System.out.println(item.getName() + " $" + item.getPrice());
-            allMainDishesUnderPriceIterator.next();
-        }
-        UIController.separator();;
+    public void displayMenuItemsUnderPrice(Float price) {
+        MenuIterator<MenuItem> iterator = menu.getPriceIterator(price);
+        titleMenuUnderPrice(price);
+        displayMenu(iterator);
     }
 
     public void addNewMenuItem(String name, int category, boolean heartHealthy, float price) {
@@ -90,22 +28,7 @@ public class MenuController {
     }
 
     public void deleteMenuItem(String name) {
-        MenuItem item = null;
-        MenuIterator<MenuItem> iterator = menu.getAllItemsIterator();
-        while (iterator.hasNext()) {
-            if (iterator.getItem().getName().equals(name)) {
-                item = iterator.getItem();
-                break;
-            } else {
-                iterator.next();
-            }
-        }
-
-        if(item != null) {
-            menu.deleteItem(item);
-        } else {
-            System.out.println("This item does not exist");
-        }
+        menu.deleteItem(menu.getAllItemsIterator(), name);
     }
 
     private void populateMenu(Menu menu) {
@@ -126,5 +49,59 @@ public class MenuController {
         menu.add(new MenuItem("Warm apple crumb tart", Menu.DESSERT, false, 10.50f));
         menu.add(new MenuItem("Chocolate sin cake", Menu.DESSERT, false, 10.50f));
         menu.add(new MenuItem("Creme brulee", Menu.DESSERT, false, 11.00f));
+    }
+
+    private void displayMenu(MenuIterator<MenuItem> iterator) {
+        while (iterator.hasNext()) {
+            MenuItem item = iterator.next();
+            System.out.println(item.getName() + " $" + item.getPrice());
+        }
+        UIController.separator();
+    }
+
+    private MenuIterator<MenuItem> getIterator(int menuOption) {
+        MenuIterator<MenuItem> iterator = null;
+
+        switch (menuOption){
+            case 1:
+                iterator = menu.getAllItemsIterator(); break;
+            case 2:
+                iterator = menu.getItemIterator(Menu.APPETIZERS); break;
+            case 3:
+                iterator = menu.getItemIterator(Menu.MAIN_DISH); break;
+            case 4:
+                iterator = menu.getItemIterator(Menu.DESSERT);break;
+            case 5:
+                iterator = menu.getHeartHealthyIterator(); break;
+        }
+
+        return iterator;
+    }
+
+    private void titleMenuUnderPrice(int menuOption) {
+        String title = "";
+
+        switch (menuOption){
+            case 1:
+                title = "ALL MENU ITEMS"; break;
+            case 2:
+                title = "APPETIZERS"; break;
+            case 3:
+                title = "MAIN DISHES"; break;
+            case 4:
+                title = "DESSERTS"; break;
+            case 5:
+                title = "ALL HEART HEALTHY MENU ITEMS"; break;
+        }
+
+        UIController.separator();
+        System.out.println(title);
+        UIController.separator();
+    }
+
+    private void titleMenuUnderPrice(Float price) {
+        UIController.separator();
+        System.out.println("ALL MAIN DISHES UNDER " + price + " USD");
+        UIController.separator();
     }
 }

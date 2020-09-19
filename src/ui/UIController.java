@@ -12,23 +12,21 @@ public class UIController {
                         "\t6 – Display all main dishes under a specified price\n" +
                         "\t7 - Add menu item\n" +
                         "\t8 - remove menu item\n" +
-                        "\t9 – Quit\n" );
-        separator();
-        System.out.print("Please choose an option: ");
+                        "\t9 – Quit" );
     }
 
     public static void menuCategoryMenu() {
-        System.out.println("\t1 - APPETIZERS\n"+
+        System.out.println(
+                "\t1 - APPETIZERS\n"+
                 "\t2 - MAIN DISH\n" +
                 "\t3 - DESSERT");
-        separator();
         System.out.print("Please choose a category: ");
     }
 
     public static void menuHeartHealthyMenu() {
-        System.out.println("\t1 - Yes\n"+
-                "\t2 - No\n");
-        separator();
+        System.out.println(
+                "\t1 - Yes\n"+
+                "\t2 - No");
         System.out.print("Please choose an option: ");
     }
 
