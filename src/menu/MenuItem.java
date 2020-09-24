@@ -1,6 +1,6 @@
 package menu;
 
-public class MenuItem {
+class MenuItem {
     private String name;
     private int category;
     private boolean heartHealthy;

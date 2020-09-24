@@ -1,11 +1,6 @@
-package menu.iterators;
+package menu;
 
-import menu.MenuIterator;
-import menu.MenuItem;
-
-import java.util.NoSuchElementException;
-
-public class HeartHealthyIterator implements MenuIterator<MenuItem> {
+class HeartHealthyIterator implements MenuIterator<MenuItem> {
     private MenuItem[] menuItems;
     private int index;
 

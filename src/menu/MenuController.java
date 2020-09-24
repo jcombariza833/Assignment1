@@ -8,6 +8,7 @@ public class MenuController {
     public MenuController() {
         this.menu = new Menu();
         populateMenu(menu);
+
     }
 
     public void displayMenuItems(int menuOption) {

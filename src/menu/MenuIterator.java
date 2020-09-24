@@ -1,6 +1,6 @@
 package menu;
 
-public interface MenuIterator<T> {
+interface MenuIterator<T> {
     boolean hasNext();
     T next();
 }

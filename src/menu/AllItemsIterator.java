@@ -1,9 +1,6 @@
-package menu.iterators;
+package menu;
 
-import menu.MenuIterator;
-import menu.MenuItem;
-
-public class AllItemsIterator implements MenuIterator<MenuItem> {
+ class AllItemsIterator implements MenuIterator<MenuItem> {
     private MenuItem[] menuItems;
     private int index;
 

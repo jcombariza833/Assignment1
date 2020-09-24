@@ -1,11 +1,6 @@
 package menu;
 
-import menu.iterators.AllItemsIterator;
-import menu.iterators.HeartHealthyIterator;
-import menu.iterators.ItemIterator;
-import menu.iterators.PriceIterator;
-
-public class Menu {
+class Menu {
     public static final int APPETIZERS = 1;
     public static final int MAIN_DISH = 2;
     public static final int DESSERT = 3;

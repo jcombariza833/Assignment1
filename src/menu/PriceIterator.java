@@ -1,9 +1,6 @@
-package menu.iterators;
+package menu;
 
-import menu.MenuIterator;
-import menu.MenuItem;
-
-public class PriceIterator implements MenuIterator<MenuItem> {
+class PriceIterator implements MenuIterator<MenuItem> {
     private MenuItem[] menuItems;
     private float price;
     private int index;
